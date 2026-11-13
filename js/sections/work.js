@@ -32,7 +32,7 @@ function initReel() {
     });
   }
   caption.innerHTML = `<span>${escapeHtml(showreel.label)}</span>${
-    showreel.video ? '<button class="reel__play" type="button" data-pulse>▶ Assistir com som</button>' : ''
+    showreel.video ? '<button class="reel__play" type="button">▶ Assistir com som</button>' : ''
   }`;
   caption.querySelector('.reel__play')?.addEventListener('click', () => openVideo(showreel.video));
 
@@ -88,7 +88,7 @@ function initGallery() {
     ${cards}
     <div class="gallery__end glass">
       <p>Tem um projeto em mente?</p>
-      <a class="btn btn--small" href="#contato" data-pulse>Vamos conversar</a>
+      <a class="btn btn--small" href="#contato">Vamos conversar</a>
     </div>`;
 
   track.addEventListener('click', (e) => {

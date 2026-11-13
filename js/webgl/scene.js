@@ -1,6 +1,6 @@
 import * as THREE from '../vendor/three.module.min.js';
 import { createCodeTexture, createBitsTexture } from './codeTexture.js';
-import { createBackground, TRAIL } from './background.js';
+import { createBackground } from './background.js';
 import { createCrystal } from './crystal.js';
 import { scrollState } from '../core/scroll.js';
 
@@ -86,9 +86,8 @@ export async function initScene(canvas) {
 
   // --- estado ---------------------------------------------------------------
   const sections = [...document.querySelectorAll('[data-scene]')].filter((el) => KEYS[el.dataset.scene]);
-  const pointer = { x: 0.5, y: 0.5, sx: 0.5, sy: 0.5, lastX: 0.5, lastY: 0.5 };
+  const pointer = { x: 0.5, y: 0.5, sx: 0.5, sy: 0.5 };
   const current = { ...KEYS.hero };
-  let trailIndex = 0;
   let f = 0;
   let tintBoost = 0;
   let tintBoostSmooth = 0;
@@ -96,30 +95,12 @@ export async function initScene(canvas) {
   let height = 1;
   let narrow = 0;
 
-  function addRipple(x, y, strength) {
-    U.uTrail.value[trailIndex].set(x, y, 0, strength);
-    trailIndex = (trailIndex + 1) % TRAIL;
-  }
-
   window.addEventListener(
     'pointermove',
     (e) => {
       pointer.x = e.clientX / width;
       pointer.y = 1 - e.clientY / height;
-      const dx = pointer.x - pointer.lastX;
-      const dy = pointer.y - pointer.lastY;
-      if (dx * dx + dy * dy > 0.0035) {
-        addRipple(pointer.x, pointer.y, 0.55);
-        pointer.lastX = pointer.x;
-        pointer.lastY = pointer.y;
-      }
     },
-    { passive: true }
-  );
-
-  window.addEventListener(
-    'pointerdown',
-    (e) => addRipple(e.clientX / width, 1 - e.clientY / height, 1.4),
     { passive: true }
   );
 
@@ -200,13 +181,11 @@ export async function initScene(canvas) {
     // fundo
     tintBoostSmooth = lerp(tintBoostSmooth, tintBoost, 1 - Math.pow(0.01, dt));
     U.uTime.value = time;
-    U.uMouse.value.set(pointer.sx, pointer.sy);
     U.uScroll.value = scrollState.y / height;
     U.uVel.value = lerp(U.uVel.value, clamp(scrollState.velocity / 40, -1, 1), 0.1);
     U.uIntensity.value = current.intensity * (1 - narrow * 0.45); // telas estreitas: texto fica sobre o código
     U.uTint.value = clamp(current.tint + tintBoostSmooth, 0, 1);
     U.uWarp.value = current.warp + Math.abs(U.uVel.value) * 1.5;
-    for (const tr of U.uTrail.value) tr.z = Math.min(1, tr.z + dt / 1.8);
 
     renderer.render(scene, camera);
   }
@@ -216,10 +195,6 @@ export async function initScene(canvas) {
   gsap.ticker.add(frame);
 
   return {
-    /** onda no fundo a partir de um ponto da tela (px) */
-    pulse(clientX, clientY, strength = 1) {
-      addRipple(clientX / width, 1 - clientY / height, strength);
-    },
     /** aquece (+) ou esfria (−) a cor do código enquanto algo está em foco */
     setTintBoost(value) {
       tintBoost = value;
