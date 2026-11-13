@@ -898,6 +898,12 @@
   margin-bottom: clamp(2rem, 6vh, 4rem);
 }
 
+/* a máscara de animação precisa de folga para as descendentes (g, j) do itálico */
+.contact__title .hero__line {
+  padding: 0 0.08em 0.26em 0;
+  margin-bottom: -0.2em;
+}
+
 .contact__title em {
   text-transform: none;
   letter-spacing: -0.03em;
