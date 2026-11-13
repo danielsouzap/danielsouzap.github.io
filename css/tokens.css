@@ -1,0 +1,53 @@
+/* ==========================================================================
+   TOKENS — identidade visual Daniel Souza
+   Conceito: "teal & orange", o contraste clássico do color grading de cinema,
+   aplicado sobre tinta quase preta. Teal = código. Laranja = luz / ação.
+   ========================================================================== */
+
+:root {
+  /* Cores */
+  --ink: #05070a;
+  --ink-2: #0b1015;
+  --bone: #ede8df;
+  --mute: #99a3a8;
+  --teal: #3fd0c9;
+  --teal-deep: #0b2a30;
+  --orange: #ff6b2c;
+  --line: rgba(237, 232, 223, 0.14);
+
+  /* Vidro */
+  --glass-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.02) 60%);
+  --glass-border: rgba(255, 255, 255, 0.14);
+  --glass-blur: 18px;
+
+  /* Tipografia */
+  --font-display: 'Syne', 'Helvetica Neue', Arial, sans-serif;
+  --font-body: 'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --font-serif: 'Instrument Serif', Georgia, serif;
+
+  --fs-hero: clamp(3rem, 9.6vw, 11rem);
+  --fs-h2: clamp(2.4rem, 6.4vw, 6rem);
+  --fs-lead: clamp(1.7rem, 4.3vw, 4rem);
+  --fs-body: clamp(1rem, 0.35vw + 0.92rem, 1.15rem);
+  --fs-mono: 0.75rem;
+
+  /* Espaço */
+  --gutter: clamp(1.1rem, 4vw, 4rem);
+  --section: clamp(6rem, 16vh, 12rem);
+  --radius: 22px;
+  --radius-sm: 12px;
+
+  /* Movimento */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-io: cubic-bezier(0.7, 0, 0.2, 1);
+
+  /* Camadas */
+  --z-gl: 0;
+  --z-content: 1;
+  --z-nav: 50;
+  --z-menu: 45;
+  --z-lightbox: 80;
+  --z-preloader: 90;
+  --z-cursor: 100;
+}

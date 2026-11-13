@@ -1,0 +1,408 @@
+/* ==========================================================================
+   COMPONENTES — vidro, botões, navegação, cursor, preloader, lightbox
+   ========================================================================== */
+
+/* Vidro líquido ------------------------------------------------------------ */
+
+.glass {
+  position: relative;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(170%);
+  backdrop-filter: blur(var(--glass-blur)) saturate(170%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.04),
+    0 24px 60px -30px rgba(0, 0, 0, 0.8);
+  isolation: isolate;
+}
+
+/* brilho especular que segue o ponteiro (--mx / --my vêm do JS) */
+.glass::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    340px circle at var(--mx, 50%) var(--my, -40%),
+    rgba(255, 255, 255, 0.16),
+    rgba(63, 208, 201, 0.06) 35%,
+    transparent 65%
+  );
+  opacity: 0;
+  transition: opacity 0.5s;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.glass:hover::before {
+  opacity: 1;
+}
+
+/* Botões ------------------------------------------------------------------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8em;
+  padding: 1.05em 1.7em;
+  border-radius: 999px;
+  background: var(--bone);
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: background 0.35s, transform 0.5s var(--ease-out);
+}
+
+.btn:hover {
+  background: var(--orange);
+  transform: translateY(-2px);
+}
+
+.btn__arrow {
+  transition: transform 0.5s var(--ease-out);
+}
+
+.btn:hover .btn__arrow {
+  transform: translateY(4px);
+}
+
+.btn--small {
+  padding: 0.8em 1.3em;
+  font-size: 0.72rem;
+}
+
+/* Chips -------------------------------------------------------------------- */
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.chip {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.5em 0.9em;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--bone);
+  white-space: nowrap;
+}
+
+/* Navegação ---------------------------------------------------------------- */
+
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--z-nav);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.1rem var(--gutter);
+  transition: transform 0.6s var(--ease-out);
+}
+
+.nav.is-hidden {
+  transform: translateY(-110%);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.brand__mark,
+.preloader__mark {
+  width: 30px;
+  height: 30px;
+  fill: none;
+  stroke: var(--bone);
+  stroke-width: 6;
+  stroke-linecap: square;
+}
+
+.brand__mark .slash,
+.preloader__mark .slash {
+  stroke: var(--orange);
+  stroke-width: 7;
+}
+
+.brand__name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: -0.02em;
+}
+
+.nav__links {
+  display: flex;
+  gap: 0.2rem;
+  padding: 0.35rem;
+  border-radius: 999px;
+}
+
+.nav__links a {
+  padding: 0.55em 1.1em;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--mute);
+  transition: color 0.3s, background 0.3s;
+}
+
+.nav__links a:hover,
+.nav__links a.is-active {
+  color: var(--bone);
+  background: rgba(255, 255, 255, 0.09);
+}
+
+.nav__burger {
+  display: none;
+  width: 44px;
+  height: 44px;
+  position: relative;
+}
+
+.nav__burger span {
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  height: 2px;
+  background: var(--bone);
+  transition: transform 0.5s var(--ease-out), top 0.5s var(--ease-out);
+}
+
+.nav__burger span:nth-child(1) { top: 17px; }
+.nav__burger span:nth-child(2) { top: 26px; }
+
+.nav__burger[aria-expanded='true'] span:nth-child(1) { top: 21px; transform: rotate(45deg); }
+.nav__burger[aria-expanded='true'] span:nth-child(2) { top: 21px; transform: rotate(-45deg); }
+
+/* Menu mobile */
+.menu {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-menu);
+  display: flex;
+  align-items: flex-end;
+  padding: 0 var(--gutter) 4rem;
+  background: rgba(5, 7, 10, 0.72);
+  -webkit-backdrop-filter: blur(28px) saturate(160%);
+  backdrop-filter: blur(28px) saturate(160%);
+  clip-path: inset(0 0 100% 0);
+  visibility: hidden;
+  transition: clip-path 0.8s var(--ease-io), visibility 0s 0.8s;
+}
+
+.menu.is-open {
+  clip-path: inset(0 0 0 0);
+  visibility: visible;
+  transition: clip-path 0.8s var(--ease-io), visibility 0s;
+}
+
+.menu a {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2.4rem, 11vw, 4rem);
+  letter-spacing: -0.04em;
+  line-height: 1.15;
+}
+
+.menu small {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  color: var(--teal);
+}
+
+@media (max-width: 860px) {
+  .nav__links,
+  .nav__cta {
+    display: none;
+  }
+  .nav__burger {
+    display: block;
+  }
+}
+
+/* Barra de progresso -------------------------------------------------------- */
+
+.progress {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  z-index: var(--z-nav);
+  pointer-events: none;
+}
+
+.progress span {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, var(--teal), var(--orange));
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+}
+
+/* Cursor ------------------------------------------------------------------- */
+
+.cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 14px;
+  height: 14px;
+  margin: -7px 0 0 -7px;
+  border-radius: 50%;
+  background: var(--bone);
+  mix-blend-mode: difference;
+  pointer-events: none;
+  z-index: var(--z-cursor);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  transition: width 0.4s var(--ease-out), height 0.4s var(--ease-out), margin 0.4s var(--ease-out),
+    background 0.3s;
+}
+
+.has-cursor .cursor {
+  display: flex;
+}
+
+.cursor.is-link {
+  width: 46px;
+  height: 46px;
+  margin: -23px 0 0 -23px;
+}
+
+.cursor.has-label {
+  width: 92px;
+  height: 92px;
+  margin: -46px 0 0 -46px;
+  background: var(--orange);
+  mix-blend-mode: normal;
+}
+
+.cursor__label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.cursor.has-label .cursor__label {
+  opacity: 1;
+}
+
+/* Preloader ---------------------------------------------------------------- */
+
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-preloader);
+  display: grid;
+  place-items: center;
+  background: var(--ink);
+}
+
+.preloader__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.4rem;
+}
+
+.preloader__mark {
+  width: 54px;
+  height: 54px;
+  animation: mark-pulse 1.4s ease-in-out infinite;
+}
+
+.preloader__num {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  color: var(--mute);
+  font-variant-numeric: tabular-nums;
+}
+
+@keyframes mark-pulse {
+  50% {
+    opacity: 0.45;
+    transform: scale(0.94);
+  }
+}
+
+/* Lightbox ----------------------------------------------------------------- */
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-lightbox);
+  display: grid;
+  place-items: center;
+  padding: var(--gutter);
+  background: rgba(5, 7, 10, 0.86);
+  -webkit-backdrop-filter: blur(24px);
+  backdrop-filter: blur(24px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s, visibility 0s 0.5s;
+}
+
+.lightbox.is-open {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.5s, visibility 0s;
+}
+
+.lightbox__stage {
+  width: min(100%, 1280px);
+  aspect-ratio: 16 / 9;
+  max-height: 80vh;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: #000;
+}
+
+.lightbox__stage video,
+.lightbox__stage iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  object-fit: contain;
+}
+
+.lightbox__close {
+  position: absolute;
+  top: 1.4rem;
+  right: var(--gutter);
+  padding: 0.8em 1.2em;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+}
+
+.lightbox__close:hover {
+  background: var(--bone);
+  color: var(--ink);
+}
