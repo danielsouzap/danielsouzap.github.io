@@ -13,7 +13,7 @@ export function initCode() {
     .map(
       (r, i) => `
       <li data-reveal>
-        <a class="repo glass" href="${escapeHtml(r.url)}" target="_blank" rel="noopener" data-tint="-0.3" data-cursor="Abrir">
+        <a class="repo glass" href="${escapeHtml(r.url)}" target="_blank" rel="noopener" data-tint="-0.3">
           <span class="repo__n mono">${String(i + 1).padStart(2, '0')}</span>
           <div>
             <h3 class="repo__name">${escapeHtml(r.name)}</h3>

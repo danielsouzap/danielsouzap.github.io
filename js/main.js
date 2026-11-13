@@ -3,7 +3,7 @@
  * Ponto de entrada.
  *   core/      scroll suave e utilitários de animação
  *   webgl/     fundo de código + cristal 3D (Three.js)
- *   ui/        navegação, cursor, vidro, preloader, lightbox
+ *   ui/        navegação, vidro, preloader, lightbox
  *   sections/  animações de cada seção (GSAP + ScrollTrigger)
  *   data/      textos, imagens e links dos projetos
  */
@@ -11,7 +11,6 @@ import { initScroll, startScroll, stopScroll, reducedMotion } from './core/scrol
 import { initReveals } from './core/reveal.js';
 import { runPreloader } from './ui/preloader.js';
 import { initNav } from './ui/nav.js';
-import { initCursor } from './ui/cursor.js';
 import { initGlass } from './ui/glass.js';
 import { initLightbox } from './ui/lightbox.js';
 import { initHero } from './sections/hero.js';
@@ -50,7 +49,6 @@ async function boot() {
   const hero = initHero();
   initReveals();
   initNav();
-  initCursor();
   initLightbox();
 
   const sceneReady = loadScene().then((scene) => initGlass(scene));

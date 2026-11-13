@@ -24,7 +24,7 @@ html/identidade.html    guia da identidade visual
 css/
   tokens.css            cores, fontes, espaçamentos (a identidade mora aqui)
   base.css              reset e tipografia
-  components.css        vidro, botões, navegação, cursor, preloader, lightbox
+  components.css        vidro, botões, navegação, preloader, lightbox
   sections.css          estilos de cada seção
   brand.css             só para o guia de identidade
   vendor/               CSS de terceiros (Lenis)
@@ -33,7 +33,7 @@ js/
   data/content.js       TEXTOS, IMAGENS E LINKS DOS PROJETOS  ← edite aqui
   core/                 scroll suave e utilitários de animação
   webgl/                cena Three.js (fundo, texturas de código, cristal)
-  ui/                   navegação, cursor, vidro, preloader, lightbox
+  ui/                   navegação, vidro, preloader, lightbox
   sections/             animação de cada seção
   vendor/               Three.js, GSAP, ScrollTrigger, Lenis
 assets/

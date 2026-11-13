@@ -69,7 +69,7 @@ function initGallery() {
     .map(
       (w, i) => `
       <article class="card${w.video ? ' is-playable' : ''}${w.portrait ? ' card--portrait' : ''}" data-tint="0.35" ${
-        w.video ? `data-video="${escapeHtml(w.video)}" data-cursor="Play" tabindex="0" role="button"` : ''
+        w.video ? `data-video="${escapeHtml(w.video)}" tabindex="0" role="button"` : ''
       }>
         ${media(w)}
         <div class="card__info">

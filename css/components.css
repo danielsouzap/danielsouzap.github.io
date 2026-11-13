@@ -1,5 +1,5 @@
 /* ==========================================================================
-   COMPONENTES — vidro, botões, navegação, cursor, preloader, lightbox
+   COMPONENTES — vidro, botões, navegação, preloader, lightbox
    ========================================================================== */
 
 /* Vidro líquido ------------------------------------------------------------ */
@@ -259,59 +259,6 @@
   background: linear-gradient(90deg, var(--teal), var(--orange));
   transform: scaleX(0);
   transform-origin: 0 50%;
-}
-
-/* Cursor ------------------------------------------------------------------- */
-
-.cursor {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 14px;
-  height: 14px;
-  margin: -7px 0 0 -7px;
-  border-radius: 50%;
-  background: var(--bone);
-  mix-blend-mode: difference;
-  pointer-events: none;
-  z-index: var(--z-cursor);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  transition: width 0.4s var(--ease-out), height 0.4s var(--ease-out), margin 0.4s var(--ease-out),
-    background 0.3s;
-}
-
-.has-cursor .cursor {
-  display: flex;
-}
-
-.cursor.is-link {
-  width: 46px;
-  height: 46px;
-  margin: -23px 0 0 -23px;
-}
-
-.cursor.has-label {
-  width: 92px;
-  height: 92px;
-  margin: -46px 0 0 -46px;
-  background: var(--orange);
-  mix-blend-mode: normal;
-}
-
-.cursor__label {
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--ink);
-  opacity: 0;
-  transition: opacity 0.2s;
-}
-
-.cursor.has-label .cursor__label {
-  opacity: 1;
 }
 
 /* Preloader ---------------------------------------------------------------- */
